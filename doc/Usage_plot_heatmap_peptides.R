@@ -8,4 +8,6 @@ eno <- as.character(fasta[1,1])
 source("code/plot_heatmap_peptides.R")
 p <- plot.heatmap.peptide(peptides.df, eno)
 p
+ggsave(p, file="figures/barchart_aa.png", width = 12, height = 7)
+
 

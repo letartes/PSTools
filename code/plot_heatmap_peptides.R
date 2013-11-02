@@ -5,8 +5,6 @@ plot.heatmap.peptide <- function(peptides.df, protein){
   # the peptides should be mapped. 
   
   require(ggplot2)
-  require(plyr)
-  #require(reshape2)
   
   # if peptide header is called "sequence" make "peptide" column name
    if (sum(names(peptides.df)=="Sequence")>=1) {
