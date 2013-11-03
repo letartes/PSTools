@@ -19,7 +19,7 @@ plot.heatmap.peptide <- function(peptides.df, protein){
   for (i in 1:length(peptides.df$peptide)){
     pos <- regexpr(toupper(peptides.df$peptide[i]), protein)
     peptides.df$start[i] <- pos[1]
-    peptides.df$end[i] <- peptides.df$start[i] + attr(pos,"match.length")
+    peptides.df$end[i] <- peptides.df$start[i] + attr(pos,"match.length") -1
     }
   
   # initialize empty df
@@ -29,7 +29,7 @@ plot.heatmap.peptide <- function(peptides.df, protein){
   for (i in 1:length(peptides.df$peptide)) {
     protein.df[peptides.df$start[i]:peptides.df$end[i], 3] <-  protein.df[peptides.df$start[i]:peptides.df$end[i], 3] + 1
   }
-  protein.df <- protein.df[1:nchar(protein), ] 
+  
   # prepare display
   length.of.display <- 50
   protein.length <- nchar(protein)
