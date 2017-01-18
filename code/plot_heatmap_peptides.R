@@ -1,17 +1,18 @@
 plot.heatmap.peptide <- function(peptides.df, protein){
-  # Plots heat map of peptide hits over the sequece of the protein.
-  # Takes data frame with one column labeled peptide containing the peptides sequences.
+  # Plots a heat map of protein coverage.
+  # Takes data frame with one column labeled "peptide" containing the peptide sequences.
   # and a character vector containing the sequence of the protein onto which
   # the peptides should be mapped. 
   
   require(ggplot2) 
+  
   # if peptide header is called "sequence" make "peptide" column name
    if (sum(names(peptides.df)=="Sequence")>=1) {
        names(peptides.df)[names(peptides.df)=="Sequence"] <- "peptide"
    }
     
   # explode string into data frame
-  protein.df<-data.frame(strsplit(protein, ""), position=1:nchar(protein))
+  protein.df <- data.frame(strsplit(protein, ""), position = 1:nchar(protein))
   colnames(protein.df)[1] <- "aa"
   protein.df$aa <- as.character(protein.df$aa)
   
@@ -22,12 +23,12 @@ plot.heatmap.peptide <- function(peptides.df, protein){
     peptides.df$end[i] <- peptides.df$start[i] + attr(pos,"match.length") -1
     }
   
-  # initialize empty df
+  # initialize empty data frame 
   protein.df$counts <- rep(0, nchar(protein))
   
-  # add 1 to the counts when a a sequence is found
+  # add 1 to the counts when amino acid sequence is found
   for (i in 1:length(peptides.df$peptide)) {
-    protein.df[peptides.df$start[i]:peptides.df$end[i], 3] <-  protein.df[peptides.df$start[i]:peptides.df$end[i], 3] + 1
+    protein.df[peptides.df$start[i]:peptides.df$end[i], 3] <- protein.df[peptides.df$start[i]:peptides.df$end[i], 3] + 1
   }
   
   # prepare display
